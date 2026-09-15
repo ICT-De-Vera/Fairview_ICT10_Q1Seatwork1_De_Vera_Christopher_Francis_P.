@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seatwork 1</title>
+    <script src="https://pyscript.net/3.14/2024.1/pyscript.js"></script>
+    <script type="module" src="main.py"></script>
+<style>
+    body {
+        background-image: url('https://wallpaperaccess.com/download/black-blue-shards-6220556');
+        
+    }
+    nav {
+        background-color: transparent;
+        overflow: hidden;
+    }
+    Button {
+        background-color: grey;
+        color: white;
+        padding: 3px 2px;
+        text-decoration: none;
+        font-size: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+</style>
+</head>
+<body>
+    <nav>
+            <button href="#home">Home</button>
+            <button href="#calculator">Calculator</button>
+    </nav>
+    <div id="home">
+        <h1>Welcome</h1>
+        <display id="welcome-message"></display>
+     
+    </div>    
+
+    <div id="calculator">
+        <div id="calculator-container">
+            <h2>Calculator</h2>
+            <form id="calculator-form">
+                <input type="number" id="num1" placeholder="Enter first number" required>
+                <input type="number" id="num2" placeholder="Enter second number" required>
+                <select id="operation">
+                    <option value="add">Add</option>
+                    <option value="subtract">Subtract</option>
+                    <option value="multiply">Multiply</option>
+                    <option value="divide">Divide</option>
+                </select>
+                <br>
+                <button type="button" onclick="calculate(event)">Calculate</button>
+            </form>
+            <div id="result"></div>
+
+    </div>
+
+    
+</body>
+</html>
