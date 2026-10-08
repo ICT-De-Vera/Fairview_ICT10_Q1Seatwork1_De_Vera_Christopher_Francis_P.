@@ -3,130 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seatwork 1</title>
+    <meta name="theme-color" content="#07111f">
+    <meta name="description" content="Check whether someone is a member of the ICT Tech Club.">
+    <title>ICT Tech Club | Member Checker</title>
 
-    <!-- PyScript 2026.7.3 Core CDN -->
-    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
-    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <!-- PyScript Releases -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Double+Ink:wght@100..900&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ca53d149-e005-4feb-9511-70757990f01d/de9r28p-9a57bac6-1de9-4031-bf39-f1efe9bf0bda.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9jYTUzZDE0OS1lMDA1LTRmZWItOTUxMS03MDc1Nzk5MGYwMWQvZGU5cjI4cC05YTU3YmFjNi0xZGU5LTQwMzEtYmYzOS1mMWVmZTliZjBiZGEuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.dltPQv-1dAeedLmCtaShCw7K1Ge0BhaNiBQFJ_4iIKw');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: #ffffff;
-            font-family: "Bitcount Prop Double Ink", Arial, sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .background-image {
-            position: fixed;
-            top: 0;
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #07111f;
+            background-image: radial-gradient(ellipse at 50% 0%, #12344c 0%, transparent 55%), linear-gradient(135deg, #07111f 0%, #0b1727 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 20px;
+            color: #e9f2f8;
+        }
+
+        .atlas-container {
+            width: 100%;
+            max-width: 620px;
+            background: #0c1a2a;
+            border: 1px solid #1e3549;
+            border-radius: 24px;
+            box-shadow: 0 28px 80px #0008;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hero Header Section */
+        .hero {
+            padding: 38px 42px 78px;
+            color: #f4f9ff;
+            position: relative;
+            background: radial-gradient(circle, #6ce6d51a 1px, transparent 1px);
+            background-size: 22px 22px;
+        }
+
+        .sub-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #a4becd;
+            margin-bottom: 22px;
+            font-weight: 700;
+        }
+
+        .sub-header::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #5ce0c1;
+            box-shadow: 0 0 14px #5ce0c1;
+        }
+
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(34px, 7vw, 48px);
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.045em;
+            margin-bottom: 16px;
+        }
+
+        .title em {
+            font-style: normal;
+            color: #63e2c4;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #a5b8c7;
+            max-width: 440px;
+            line-height: 1.7;
+        }
+
+        /* Curved transition divider */
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #34546a, transparent);
         }
-       .custom-card {
-            background: rgba(15, 15, 20, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.25); 
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
+
+        /* Card Controls */
+        .card-wrapper {
+            background: #0c1a2a;
+            padding: 0 42px 42px;
+            position: relative;
+            z-index: 2;
         }
-        .form-control, .form-select {
-            background-color: #222222;
-            color: #ffffff;
-            border: 1px solid #555555;
+
+        .lookup-card {
+            background: #102236;
+            border: 1px solid #203b51;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px #0003;
+            position: relative;
         }
-        .form-control:focus, .form-select:focus {
-            background-color: #2b2b2b;
-            color: #ffffff;
-            border-color: #4d0d91;
-            box-shadow: none;
+
+        .card-label {
+            font-size: 10px;
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+            color: #61d9bd;
+            font-weight: 700;
+            margin-bottom: 9px;
         }
-        .btn {
-            background-color: #4d0d91;
-            color: #ffffff;
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 23px;
+            color: #f0f6fc;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 22px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .name-input {
+            width: 100%;
+            border: 1px solid #2d485e;
+            border-radius: 10px;
+            padding: 15px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #f0f6fc;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #0b1928;
+        }
+
+        .name-input::placeholder {
+            color: #71879a;
+        }
+
+        .name-input:focus {
+            border-color: #55d8b9;
+            box-shadow: 0 0 0 3px #55d8b922;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #5ce0c1;
+            color: #08201e;
             border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 13px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #7aecd2;
+            box-shadow: 0 7px 20px #5ce0c133;
+            transform: translateY(-1px);
+        }
+
+        /* Results Box */
+        .result-box {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #102c2b;
+            border: 1px solid #24564d;
+            display: none;
+            color: #a1f1db;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .result-box.active {
+            display: block;
+        }
+
+        .result-box.not-member {
+            background: #2a2025;
+            border-color: #65434b;
+            color: #ffc0c5;
+        }
+
+        .roster-note {
+            color: #8198aa;
+            font-size: 11px;
+            line-height: 1.5;
+            margin-top: 13px;
         }
     </style>
 </head>
-<body class="py-4">
+<body>
 
-    <div class="container" style="max-width: 750px;">
-
-
-        <!-- Part 1 Display Section -->
-        <div id="home" class="custom-card p-4 mb-4">
-            <h1 class="h2 mb-3 text-primary">Part 1: Profile & Variables</h1>
-            <div class="profile-list lh-lg">
-                <p class="mb-1"><strong class="text-info" id="name"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="age"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="height"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="student_type"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="best_friend"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="car_brand"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="color"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="shoe_size"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="countries"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="fruits"></strong></p>
-                <p class="mb-1"><strong class="text-info" id="days"></strong></p>
-            </div>
+    <div class="atlas-container">
+        <div class="hero">
+            <div class="sub-header">ICT Club Checker</div>
+            <h1 class="title">Member<br><em>Checker</em></h1>
+            <p class="description">Verify ICT Tech Club membership in seconds. Enter a name below to check it against the club roster.</p>
+            <div class="wave-divider"></div>
         </div>
 
-        <!-- Part 2 Calculator Section -->
-        <div id="calculator" class="custom-card p-4">
-            <h2 class="h3 mb-3 text-primary">Part 2: Python Calculator</h2>
-            <form id="calc-form" class="mb-3">
-                <div class="row g-2 mb-3">
-                    <div class="col-md-5">
-                        <input type="number" step="any" id="num1" class="form-control" placeholder="Enter first number" required>
+        <div class="card-wrapper">
+            <div class="lookup-card">
+                <div class="card-label">Verification</div>
+                <h2 class="card-title">Who are you checking?</h2>
+                
+                <form id="lookup-form" onsubmit="return false;">
+                    <div class="input-group">
+                        <input type="text" id="name-input" class="name-input" placeholder="Type the person's full name" autocomplete="off" aria-label="Person's full name" required>
                     </div>
-                    <div class="col-md-5">
-                        <input type="number" step="any" id="num2" class="form-control" placeholder="Enter second number" required>
-                    </div>
-                    <div class="col-md-2">
-                        <select id="operation" class="form-select">
-                            <option value="+">Add</option>
-                            <option value="-">Subtract</option>
-                            <option value="×">Multiply</option>
-                            <option value="÷">Divide</option>
-                        </select>
-                    </div>
+                    <button type="submit" class="submit-btn" py-click="lookup_confirm">Check membership <span aria-hidden="true">→</span></button>
+                </form>
+
+                <!-- Target element matching document.getElementById("result-content") -->
+                <div id="result" class="result-box" role="status" aria-live="polite">
+                    <div id="result-content"></div>
                 </div>
-                <button type="submit" class="btn w-100" py-click="solve">Calculate</button>
-            </form>
-            
-            <div id="output" class="mt-3 p-3 bg-dark rounded border border-secondary text-center">
+
+                <p class="roster-note">Official roster is active. Case-insensitive matching enabled.</p>
             </div>
-            <script type="py" src="main.py"></script>
         </div>
-
     </div>
-
-
-
-
-
-
-    <div class="text-center mt-5">
-        <p class="text-light">&copy; 2026 De Vera, Christopher Francis P. All rights reserved.</p>
-    </div>
-    <div id="sources" class="text-center mt-2">
-        <p class="text-light">
-            <a href="https://pyscript.net/" target="_blank" class="text-light">PyScript</a> |
-            <a href="https://getbootstrap.com/" target="_blank" class="text-light">Bootstrap</a> |
-            <a href="https://i.pinimg.com/originals/2c/79/79/2c79797f8479ee631db33049d97b91b7.gif" target="_blank" class="text-light">Background Image</a>
-        </p>
-    </div>
-
 </body>
 </html>
